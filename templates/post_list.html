@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- 	<h1>{{ title }}</h1>
+ -->
+
+<!-- <form method='GET' action=''>
+<input type='text' name="query" placeholder="Search posts" value="{{ request.GET.query }}"/>
+<input type="submit" value="Search" />
+</form> -->
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        {% for objs in objects_list %}
+            </br></br></br>
+            {% if objs.image %}
+                <img class="card-img-top" src='{{ objs.image.url }}' class='img-responsive' />
+            {% endif %}
+
+            <h5><a href = '{% url "photos:detail" objs.id %}'>{{ objs.title }}</a> <small>{{ objs.publish_date|timesince }}</small></h5>
+
+            <p>{{ objs.summary|linebreaks|truncatechars:120 }}</p>
+
+            <a href='{% url "photos:detail" objs.id %}' class="btn btn-primary">Read More...</a>
+        {% endfor %}
+    
+        <div class="pagination">
+            <span class="step-links">
+    
+                {% if objects_list.has_previous %}
+                    <a href="?page=1{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">&laquo; first</a>
+                    <a href="?page={{ objects_list.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">previous</a>
+                {% endif %}
+
+                <span class="current">Page {{ objects_list.number }} of {{ objects_list.paginator.num_pages }}.
+                </span>
+
+                {% if objects_list.has_next %}
+                    <a href="?{{ page_request_var }}={{ objects_list.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">next</a>
+                    <a href="?{{ page_request_var }}={{ objects_list.paginator.num_pages }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ instance.title }} | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+	<div class='col-md-6 offset-md-3'>
+		{% if instance.image %}
+			<img class="card-img-top" src='{{ instance.image.url }}' class='img-responsive' />
+		{% endif %}
+		<h1>{{ title }}<small>{{ instance.publish_date|timesince }}</small></h1> <!--this is a built-in filter that is provided -->
+		</br>
+		</hr>
+		</br>
+
+		{% for objs in post_content %}
+			<div>
+				{% if objs.image %}
+					<img class="card-img-top" src='{{ objs.image.url }}' class='img-responsive' />
+					</br>
+				{% endif %}
+				<div>
+					<p >{{objs.description|linebreaks}}</p>
+				</div>
+				</br></br>
+			</div>
+		{% endfor %}
+		<a href = '{% url "photos:photo_list" %}'>back</a>
+		</hr>
+	</div>
+
+{% endblock content %}
