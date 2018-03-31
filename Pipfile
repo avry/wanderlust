@@ -7,6 +7,8 @@ django = "*"
 gunicorn = "*"
 django-heroku = "*"
 Pillow = "*"
+psycopg2 = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.6"
